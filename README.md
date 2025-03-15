@@ -1,14 +1,16 @@
 How to Use
-Step 1: Download the Script
+**Step 1**: Download the Script
 Save the script to a file named vm_health_check.sh:
 
 
 
-**nano vm_health_check.sh**
+```bash
+nano vm_health_check.sh
+```
 
 Copy and paste the script content into the file, then save and exit.
 
-Step 2: Make the Script Executable
+**Step 2:** Make the Script Executable
 Run the following command to make the script executable:
 
 
@@ -16,15 +18,17 @@ Run the following command to make the script executable:
 chmod +x vm_health_check.sh
 ```
 
-Step 3: Run the Script
+**Step 3:** Run the Script
 Execute the script using:
 
 
-``'
+
+```bash
 ./vm_health_check.sh
 ```
-Example Output
 
+Example Output
+------------------------------
 Analyzing VM health...
 CPU Utilization: 12.3%
 Memory Utilization: 45.6%
@@ -32,16 +36,17 @@ Disk Utilization: 33%
 VM State: Healthy
 Script Logic
 CPU Utilization:
+-------------------------------
 
-Uses the top -bn1 command to calculate CPU usage.
+Uses the top **-bn1** command to calculate CPU usage.
 
 Memory Utilization:
 
-Uses the free command to calculate memory usage.
+Uses the **free **command to calculate memory usage.
 
 Disk Utilization:
 
-Uses the df command to calculate disk usage.
+Uses the **df** command to calculate disk usage.
 
 Health Check:
 
@@ -52,7 +57,7 @@ If any metric exceeds 60%, the VM is declared Not Healthy.
 Customization
 You can modify the threshold (currently set to 60%) by editing the script and changing the value in the following lines:
 
-```
+```bash
 
 if (( $(echo "$cpu_util < 60" | bc -l) )); then
 if (( $(echo "$memory_util < 60" | bc -l) )); then
@@ -64,7 +69,7 @@ bc Command Not Found:
 Install bc using:
 
 
-```
+```bash
 sudo apt install bc
 ```
 Script Not Executable:
@@ -72,7 +77,7 @@ Script Not Executable:
 Ensure the script has execute permissions:
 
 
-```
+```bash
 chmod +x vm_health_check.sh
 ```
 Incorrect Output:
