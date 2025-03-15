@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Function to check CPU utilization (macOS compatible)
+# Function to check CPU utilization (Linux compatible)
 check_cpu() {
-    cpu_util=$(ps -A -o %cpu | awk '{s+=$1} END {print s}')
+    cpu_util=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
     echo "CPU Utilization: $cpu_util%"
     if (( $(echo "$cpu_util < 60" | bc -l) )); then
         return 0
@@ -11,11 +11,9 @@ check_cpu() {
     fi
 }
 
-# Function to check memory utilization (macOS compatible)
+# Function to check memory utilization (Linux compatible)
 check_memory() {
-    memory_total=$(sysctl -n hw.memsize)
-    memory_used=$(vm_stat | grep "Pages active:" | awk '{print $3}' | tr -d '.')
-    memory_util=$(echo "scale=2; ($memory_used * 4096 * 100) / $memory_total" | bc)
+    memory_util=$(free | grep Mem | awk '{print $3/$2 * 100.0}')
     echo "Memory Utilization: $memory_util%"
     if (( $(echo "$memory_util < 60" | bc -l) )); then
         return 0
@@ -24,7 +22,7 @@ check_memory() {
     fi
 }
 
-# Function to check disk space utilization (macOS compatible)
+# Function to check disk space utilization (Linux compatible)
 check_disk() {
     disk_util=$(df -h / | awk 'NR==2 {print $5}' | sed 's/%//')
     echo "Disk Utilization: $disk_util%"
