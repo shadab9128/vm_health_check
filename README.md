@@ -4,7 +4,7 @@ Save the script to a file named vm_health_check.sh:
 
 
 
-`nano vm_health_check.sh`
+**nano vm_health_check.sh**
 
 Copy and paste the script content into the file, then save and exit.
 
@@ -12,7 +12,10 @@ Step 2: Make the Script Executable
 Run the following command to make the script executable:
 
 
-`chmod +x vm_health_check.sh`
+```bash
+chmod +x vm_health_check.sh
+```
+
 Step 3: Run the Script
 Execute the script using:
 
